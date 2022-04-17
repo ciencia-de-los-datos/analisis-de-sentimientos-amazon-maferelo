@@ -135,7 +135,7 @@ def pregunta_04():
     # considerar 10 valores entre 0.1 y 1.0 para el parámetro alpha de
     # BernoulliNB.
     param_grid = {
-        "alpha": np.array(0.1, 1.0, 10),
+        "BernoulliNB__alpha": np.array((0.1, 1.0, 10)),
     }
 
     # Defina una instancia de GridSearchCV con el pipeline y el diccionario de
@@ -145,7 +145,7 @@ def pregunta_04():
         param_grid=param_grid,
         cv=5,
         scoring="accuracy",
-        refit=____,
+        refit=True,
         return_train_score=True,
     )
 
@@ -172,14 +172,14 @@ def pregunta_05():
     X_train, X_test, y_train, y_test = pregunta_02()
 
     # Evalúe el pipeline con los datos de entrenamiento usando la matriz de confusion.
-    cfm_train = ____(
-        y_true=____,
-        y_pred=____.____(____),
+    cfm_train = confusion_matrix(
+        y_true=y_train,
+        y_pred=gridSearchCV.predict(X_train),
     )
 
-    cfm_test = ____(
-        y_true=____,
-        y_pred=____.____(____),
+    cfm_test = confusion_matrix(
+        y_true=y_test,
+        y_pred=gridSearchCV.predict(X_test),
     )
 
     # Retorne la matriz de confusion de entrenamiento y prueba
@@ -200,7 +200,7 @@ def pregunta_06():
 
     # pronostique la polaridad del sentimiento para los datos
     # no etiquetados
-    y_untagged_pred = ____.____(____)
+    y_untagged_pred = gridSearchCV.predict(x_untagged)
 
     # Retorne el vector de predicciones
     return y_untagged_pred
